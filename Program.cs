@@ -1,7 +1,5 @@
-
-using DTOs;
+using HttpRest;
 using InMemoryRepositories;
-using Microsoft.AspNetCore.Mvc;
 using Presentation.Controllers;
 using TaskRepositories;
 using TodoApp.Src.Domain.Usecases;
@@ -32,13 +30,5 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapGet("/tasks", ([FromServices] ListTaskController controller) => controller.Handle());
-
-app.MapPost("/tasks", ([FromServices] CreateTaskController controller, [FromBody] CreateTaskDTO body) => controller.Handle(body));
-app.MapPut("/tasks/{id}", ([FromServices] ToggleCompleteTaskController controller, string id) => controller.Handle(id));
-app.MapPut("/tasks", ([FromServices] UpdateTitleTaskController controller, [FromBody] UpdateTitleTaskDTO body) => controller.Handle(body));
-app.MapDelete("/tasks/{id}", ([FromServices] DeleteTaskController controller, string id) => controller.Handle(id));
-
-
+new Routes(app).MountRoutes();
 app.Run();

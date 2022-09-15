@@ -32,13 +32,9 @@ namespace InMemoryRepositories
             var taskIndex = this.Tasks.FindIndex(task => task.Id == id);
             if (taskIndex == -1) return null;
 
-            var task = this.Tasks.First(task => task.Id == id);
+            this.Tasks[taskIndex].isCompleted = !this.Tasks[taskIndex].isCompleted;
 
-            task.isCompleted = !task.isCompleted;
-
-            this.Tasks[taskIndex] = task;
-
-            return task;
+            return this.Tasks[taskIndex];
         }
 
         public TaskEntity? UpdateTitleTask(string id, string title)
@@ -46,13 +42,9 @@ namespace InMemoryRepositories
             var taskIndex = this.Tasks.FindIndex(task => task.Id == id);
             if (taskIndex == -1) return null;
 
-            var task = this.Tasks.First(task => task.Id == id);
+            this.Tasks[taskIndex].Title = title;
 
-            task.Title = title;
-
-            this.Tasks[taskIndex] = task;
-
-            return task;
+            return this.Tasks[taskIndex];
         }
 
         public bool Delete(string id)
